@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".StartActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:weightSum="1">
+
+
+
+
+        <TextView
+            android:id="@+id/iTour"
+            android:text="@string/iTour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/ClicktoBegin"
+            android:layout_alignStart="@+id/ClicktoBegin"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.13" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal|top" />
+
+
+
+        <TextView
+            android:id="@+id/ClicktoBegin"
+            android:text="@string/ClicktoBegin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="62dp"
+            android:layout_weight="0.37"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_gravity="center" />
+
+
+        <Button
+            android:layout_width="364dp"
+            android:layout_height="0dp"
+            android:minHeight="5dp"
+            android:textSize="10sp"
+            android:id="@+id/StartTour"
+            android:text="Start Your itour"
+            android:layout_weight="0.31"
+            android:drawableLeft="@drawable/fypicon" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
