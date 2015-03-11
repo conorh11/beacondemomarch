@@ -3,8 +3,11 @@ package com.example.conor.beacon_demo;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,16 +21,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
 
 
 public class BeaconID6666 extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
-
+    //Nintendo 64 details and photos, video is of GoldenEye
     TextView username;
     TextView name1;
-    String URLImage = "http://http://140.203.217.200/images/estimotebeacon.jpg";
+    public static ArrayList<Drawable> drawable = new ArrayList<Drawable>();
     ImageView image;
+    ImageView image2;
+    public static String[] URLs = {"http://140.203.217.200/images/macintosh.jpg","http://140.203.217.200/images/applelogo.jpg"};
     ProgressDialog mProgressDialog;
     // String youtubeURL="https://www.youtube.com/watch?v=SrsHBjzt2E8";
 
@@ -38,22 +46,23 @@ public class BeaconID6666 extends YouTubeBaseActivity implements YouTubePlayer.O
     private static final String TAG_NAME = "name";
     private static final String TAG_INFORMATION = "information";
 
-    public static final String API_KEY = "AIzaSyB-t2BcSAeBxRvDCqWs8evOhACcWN3imbM";
+    public static final String API_KEY = "AIzaSyAFJdd-2ZjLWZBPzEx07gd0PTy5aPJo-mU";
 
     //http://youtu.be/<VIDEO_ID>
-    public static final String VIDEO_ID = "SrsHBjzt2E8";
+    public static final String VIDEO_ID = "VtvjbmoDx-I";
 
 
-    JSONArray user = null;
+    JSONArray user;
 
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beacon_id2222);
+        setContentView(R.layout.activity_beacon_id6666);
         new JSONParse().execute();
-        image = (ImageView) findViewById(R.id.imageViewtwo);
-        new DownloadImage().execute(URLImage);
+        image = (ImageView) findViewById(R.id.imagemacintosh);
+        image2 = (ImageView) findViewById(R.id.imageapplelogo);
+        new DownloadImage().execute();
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView)findViewById(R.id.youtube_view);
         youTubePlayerView.initialize(API_KEY, this);
 
@@ -139,14 +148,11 @@ public class BeaconID6666 extends YouTubeBaseActivity implements YouTubePlayer.O
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            username = (TextView)findViewById(R.id.description);
-            name1 = (TextView)findViewById(R.id.whereyouaretext);
+            name1 = (TextView)findViewById(R.id.macintosh);
+            username = (TextView)findViewById(R.id.macintoshdescription);
 
-            pDialog = new ProgressDialog(BeaconID6666.this);
-            pDialog.setMessage("Getting Data ...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+
+
         }
         @Override
         protected JSONObject doInBackground(String... args) {
@@ -177,12 +183,22 @@ public class BeaconID6666 extends YouTubeBaseActivity implements YouTubePlayer.O
         }
     }
 
-    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+    private void setImage()
+    {
+        if(drawable.get(0) == null)
+        {
+            System.out.println("DRAWABLE JEST NULL");
+        }
+        image.setBackgroundDrawable(drawable.get(0));
+        image2.setBackgroundDrawable(drawable.get(1));
+    }
+
+    private class DownloadImage extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Create a progressdialog
+            //Create a progressdialog
             mProgressDialog = new ProgressDialog(BeaconID6666.this);
             // Set progressdialog title
             mProgressDialog.setTitle("Download Image Tutorial");
@@ -191,34 +207,28 @@ public class BeaconID6666 extends YouTubeBaseActivity implements YouTubePlayer.O
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
             mProgressDialog.show();
+
+
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            downloadImage();
+            return null;
+
+
         }
 
         @Override
-        protected Bitmap doInBackground(String... URL) {
+        protected void onPostExecute(Void aVoid) {
 
-            String imageURL = URL[0];
 
-            Bitmap bitmap = null;
-            try {
-                // Download Image from URL
-                InputStream input = new java.net.URL(imageURL).openStream();
-                // Decode Bitmap
-                bitmap = BitmapFactory.decodeStream(input);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
+            setImage();
 
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            // Set the bitmap into ImageView
-            image.setImageBitmap(result);
-            // Close progressdialog
-            mProgressDialog.dismiss();
         }
     }
-
     @Override
     protected void onStop() {
         super.onStop();
@@ -228,6 +238,47 @@ public class BeaconID6666 extends YouTubeBaseActivity implements YouTubePlayer.O
 
 
     }
+
+    @SuppressWarnings("deprecation")
+    private void downloadImage()
+    {
+        //Prepare to download image
+
+        URL url;
+
+        InputStream in;
+        BufferedInputStream buf;
+
+        //BufferedInputStream buf;
+        for(int i = 0; i<URLs.length; i++)
+        {
+            try {
+                url = new URL(URLs[i]);
+                in = url.openStream();
+
+                // Read the inputstream
+                buf = new BufferedInputStream(in);
+
+                // Convert the BufferedInputStream to a Bitmap
+                Bitmap bMap = BitmapFactory.decodeStream(buf);
+                if (in != null) {
+                    in.close();
+                }
+                if (buf != null) {
+                    buf.close();
+                }
+
+                drawable.add(new BitmapDrawable(bMap));
+
+            } catch (Exception e) {
+                Log.e("Error reading file", e.toString());
+            }
+
+        }
+
+    }
+
+
 
 
 

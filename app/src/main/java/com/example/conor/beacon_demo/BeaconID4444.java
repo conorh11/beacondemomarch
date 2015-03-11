@@ -35,7 +35,7 @@ public class BeaconID4444 extends YouTubeBaseActivity implements YouTubePlayer.O
     public static ArrayList<Drawable> drawable = new ArrayList<Drawable>();
     ImageView image;
     ImageView image2;
-    public static String[] URLs = {"http://140.203.217.200/images/estimotebeacon.jpg","http://140.203.217.200/images/nintendo64.jpg"};
+    public static String[] URLs = {"http://140.203.217.200/images/nintendo64.jpg","http://140.203.217.200/images/supermario64.jpg"};
     ProgressDialog mProgressDialog;
     // String youtubeURL="https://www.youtube.com/watch?v=SrsHBjzt2E8";
 

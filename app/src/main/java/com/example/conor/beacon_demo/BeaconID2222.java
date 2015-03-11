@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -49,7 +50,7 @@ public class BeaconID2222 extends YouTubeBaseActivity implements YouTubePlayer.O
     ImageView image2;
     ProgressDialog mProgressDialog;
     // String youtubeURL="https://www.youtube.com/watch?v=SrsHBjzt2E8";
-    public static String[] URLs = {"http://140.203.217.200/images/estimotebeacon.jpg","http://140.203.217.200/images/nintendo64.jpg"};
+    public static String[] URLs = {"http://140.203.217.200/images/atari2600.jpg","http://140.203.217.200/images/atari2600cartridge.jpg"};
 
 
     //URL to get JSON Array
@@ -62,8 +63,8 @@ public class BeaconID2222 extends YouTubeBaseActivity implements YouTubePlayer.O
     public static final String API_KEY = "AIzaSyB-t2BcSAeBxRvDCqWs8evOhACcWN3imbM";
 
     //http://youtu.be/<VIDEO_ID>
-    public static final String VIDEO_ID = "SrsHBjzt2E8";
-    public static final String VIDEO_ID2 = "lwnmx-5mBLM";
+    public static final String VIDEO_ID = "913xrM9FYpI";
+
 
     JSONArray user = null;
 
@@ -79,10 +80,9 @@ public class BeaconID2222 extends YouTubeBaseActivity implements YouTubePlayer.O
         new DownloadImage().execute();
 
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView)findViewById(R.id.youtube_view);
-        YouTubePlayerView youTubePlayerView2 = (YouTubePlayerView)findViewById(R.id.youtube_view2);
         youTubePlayerView.initialize(API_KEY, this);
-        youTubePlayerView2.initialize(API_KEY, this);
 
+        final Button startButton = (Button) findViewById(R.id.StartTour);
 
 
 
@@ -90,8 +90,22 @@ public class BeaconID2222 extends YouTubeBaseActivity implements YouTubePlayer.O
         Intent w = new Intent(this, NotificationService.class);
         startService(w);
 
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+
+        });
+
+
+
+
 
     }
+
+
 
     @Override
     public void onInitializationSuccess(Provider provider, YouTubePlayer player, boolean wasRestored) {
@@ -106,10 +120,7 @@ public class BeaconID2222 extends YouTubeBaseActivity implements YouTubePlayer.O
 
         }
 
-        if (!wasRestored) {
 
-            player.cueVideo(VIDEO_ID2);
-        }
 
 
     }
